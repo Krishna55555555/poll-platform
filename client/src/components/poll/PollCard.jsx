@@ -12,8 +12,7 @@ function PollCard({ poll }) {
 
   const copyPollLink = () => {
 
-    const pollLink =
-      `http://localhost:5173/poll/${poll._id}`;
+    const pollLink = `${window.location.origin}/poll/${poll._id}`;
 
     navigator.clipboard.writeText(
       pollLink
