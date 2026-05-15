@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0f172a;
+  color: white;
+}
+
+button {
+  transition: all 0.2s ease;
+}
