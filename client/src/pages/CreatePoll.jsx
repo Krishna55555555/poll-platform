@@ -218,10 +218,17 @@ function CreatePoll() {
 
       setLoading(true);
 
-      await api.post(
-        "/polls",
-        pollData
-      );
+      const token = localStorage.getItem("token");
+
+await api.post(
+  "/polls",
+  pollData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       toast.success(
         "Poll Created Successfully 🚀"
