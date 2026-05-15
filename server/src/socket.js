@@ -3,46 +3,35 @@ const { Server } = require("socket.io");
 let io;
 
 const initSocket = (server) => {
-
   io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
-      methods: ["GET", "POST"]
-    }
+      origin: [
+        "http://localhost:5173",
+        process.env.CLIENT_URL,
+      ],
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
   });
 
   io.on("connection", (socket) => {
-
     console.log("User connected:", socket.id);
 
-    // Join poll room
     socket.on("join_poll", (pollId) => {
-
       socket.join(pollId);
-
-      console.log(`Socket joined poll room: ${pollId}`);
-
     });
 
     socket.on("disconnect", () => {
-
-      console.log("User disconnected");
-
+      console.log("User disconnected:", socket.id);
     });
-
   });
-
-};
-
-const getIO = () => {
-  if (!io) {
-    throw new Error("Socket.io not initialized");
-  }
 
   return io;
 };
 
+const getIO = () => io;
+
 module.exports = {
   initSocket,
-  getIO
+  getIO,
 };

@@ -8,18 +8,27 @@ const responseRoutes = require("./routes/responseRoutes");
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+// CORS
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      process.env.CLIENT_URL,
+    ],
+    credentials: true,
+  })
+);
 
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/polls", pollRoutes);
 app.use("/api/responses", responseRoutes);
 
+// Health Check
 app.get("/", (req, res) => {
   res.send("API Running");
 });
